@@ -3,7 +3,7 @@
 #include <DHT.h>
 
 #define MQ135_PIN 34    // MQ-135 analog output to GPIO34
-#define DHT_PIN 4       // DHT22 data pin to GPIO4
+#define DHT_PIN 13       // DHT22 data pin to GPIO4
 #define DHT_TYPE DHT22  // Define the sensor type (DHT22)
 #define RL 10           // Load resistor value in kilo-ohms
 
@@ -20,8 +20,8 @@
 #define BENZENE_CONVERSION_FACTOR 1.8
 
 // Wi-Fi credentials
-const char* ssid = "ssid";
-const char* password = "password";
+const char* ssid = "";
+const char* password = "";
 
 AsyncWebServer server(80);
 DHT dht(DHT_PIN, DHT_TYPE);
@@ -37,6 +37,9 @@ float lastHumidity = 0.0;
 void setup() {
     Serial.begin(115200);
     pinMode(MQ135_PIN, INPUT);
+        // Configure GPIO26 as Output for VCC
+    pinMode(26, OUTPUT);
+    digitalWrite(26, HIGH);
     dht.begin();
 
     Serial.println("Warming up MQ-135 sensor...");
